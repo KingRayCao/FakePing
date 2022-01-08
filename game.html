@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+    .obstacle {
+        position : absolute;
+    }
+    img {
+        position: absolute;
+    }
+</style>
+<title>飞行实践</title>
+</head>
+<body>
+    <!-- background-image: url(img/sky.jfif); -->
+    <div id="dv">
+        <img src="img/plane.png" id="plane" style="transform: rotate(270deg);"/>
+        <div style="position: absolute; right: 100px; top: 100px;">
+            <p>燃油储量</p>
+            <meter id="mtro"></meter>
+            <p>弹药储量</p>
+            <meter id="mtrb"></meter>
+            <p>你的巨</p>
+            <p id="sc"></p>
+        </div>        
+        <script src="game2.js"></script>
+        <div onclick="gameMain();" style="position: absolute; top: 700px;">开始</div>
+    </div>
+</body>

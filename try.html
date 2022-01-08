@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>飞行实践</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+    .arrival{
+        font-size: 50px;
+        font-family: 华文彩云;
+        color: gold;
+        animation-name: zoomout;
+        animation-play-state: paused;
+        animation-duration: 2s;
+        position: absolute;
+    }
+    @keyframes zoomout {
+        0%{font-size:0px;}
+        80%{font-size:200px}
+        100%{font-size: 50px;}
+    }
+</style>
+
+</head>
+<body>
+    <div>
+        <h1>欢迎来到飞行实践！</h1>
+        <blockquote style="font-family: 隶书;font-size:30px;">“问汝<b style="font-size:50px;font-family:华文行楷;color:crimson" id="ping">平</b>生功业，飞机巨鸡卖鸡”</blockquote>
+        <img src="img/ju.JPG" style="width: 200px;height: 200px;" id="p1"/>
+        
+    </div>
+    <button onclick="start=true;fly(0);"style="position:absolute;top:500px;left:200px;" id="bt1">开始飞行</button>
+    <button onclick="tremble(0);"style="position:absolute;top:500px;left:300px;">遇到强气流</button>
+    <p class="arrival" style="display: none;" id="desti">到达目的地！</p>
+    <script src="fly.js"></script>
+    <a href="game.html" style="position:absolute;top:500px;left:400px;">仿真训练 </a>
+
+</body>
