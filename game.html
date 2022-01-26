@@ -9,7 +9,7 @@
         font-family: Tahoma, Verdana, Arial, sans-serif;
     }
     .obstacle {
-        position : absolute;
+        position:absolute;
     }
     img {
         position: absolute;
@@ -18,18 +18,9 @@
 <title>飞行实践</title>
 </head>
 <body>
-    <!-- background-image: url(img/sky.jfif); -->
-    <div id="dv">
+    <div id='dv'>
+        <p style="position: absolute;top:500px;left:100px" id="time">飞行时间：</p>
         <img src="img/plane.png" id="plane" style="transform: rotate(270deg);"/>
-        <div style="position: absolute; right: 100px; top: 100px;">
-            <p>燃油储量</p>
-            <meter id="mtro"></meter>
-            <p>弹药储量</p>
-            <meter id="mtrb"></meter>
-            <p>你的巨</p>
-            <p id="sc"></p>
-        </div>        
-        <script src="game2.js"></script>
-        <div onclick="gameMain();" style="position: absolute; top: 700px;">开始</div>
+        <script src="game.js"></script>
     </div>
 </body>
