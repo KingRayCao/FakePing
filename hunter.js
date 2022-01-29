@@ -10,6 +10,7 @@
     const fps = 30;
     const diffT = 1;
     const playField = getElem('dv');
+    const field = getElem('ui');
     var mtro, mtrb, sc, mtrhp;
     const width = 1000,
         height = 540;
@@ -22,6 +23,14 @@
         existBoss = false;
     var userName = '';
     var table = getElem("rank");
+    var imageMap = []
+
+    field.width = width
+    field.height = height
+    window.addEventListener('resize', (s, e) => {
+        field.width = width
+        field.height = height
+    })
 
     function getElem(s) {
         return document.getElementById(s);
@@ -87,14 +96,13 @@
     }
 
     function removeobj(arr, i) {
-        arr[i].inst.remove();
+        //arr[i].inst.remove();
         arr[i] = null;
     }
 
     function removeall(arr, num) {
         for (let i = 0; i < num; i++) {
             if (arr[i] != null) {
-                arr[i].inst.remove();
                 arr[i] = null;
             }
         }
@@ -102,8 +110,8 @@
 
     function mouseTrack() {
         document.addEventListener('mousemove', function (e) {
-            let x = e.pageX;
-            let y = e.pageY;
+            let x = e.pageX - field.getBoundingClientRect().x
+            let y = e.pageY - field.getBoundingClientRect().y
             if (x < 0)
                 x = 0;
             if (x > width)
@@ -132,7 +140,7 @@
     }
 
     class Entity {
-        constructor(_name, _w, _h, _picsrc, _class, _health, _speed) {
+        constructor(_name, _w, _h, _picsrc, _class, _health, _speed, _imgTransform = undefined) {
             this.name = _name;
             this.inst = null;
             this.parentObj = null;
@@ -146,26 +154,42 @@
             this.class = _class;
             this.health = _health;
             this.speed = _speed;
+            this.imgTransform = _imgTransform
         }
         appendTo() {
-            this.inst = document.createElement('img');
+
+
+            /*this.inst = document.createElement('img');
             this.inst.src = this.picsrc;
             this.inst.style.position = 'absolute';
             this.inst.className = this.class;
-            playField.appendChild(this.inst);
+            playField.appendChild(this.inst);*/
             this.drawPos();
         }
         drawPos() {
-            this.inst.style.left = String(this.pos.x - this.w / 2) + 'px';
+            if (imageMap[this.picsrc] == undefined) {
+                let img = new Image()
+                img.src = this.picsrc
+                img.className += this.class
+                img.style.width = String(this.w) + 'px'
+                img.style.height = String(this.h) + 'px'
+                imageMap[this.picsrc] = img
+            }
+
+            let context = ui.getContext("2d")
+            context.drawImage(imageMap[this.picsrc], 0, 0, imageMap[this.picsrc].width, imageMap[this.picsrc].height, this.pos.x - this.w / 2, this.pos.y - this.h / 2
+                , this.w, this.h)
+
+            /*this.inst.style.left = String(this.pos.x - this.w / 2) + 'px';
             this.inst.style.top = String(this.pos.y - this.h / 2) + 'px';
             this.inst.style.width = String(this.w) + 'px';
-            this.inst.style.height = String(this.h) + 'px';
+            this.inst.style.height = String(this.h) + 'px';*/
         }
     }
 
     class Plane extends Entity {
         constructor() {
-            super('Plane', 100, 100, 'img/plane.png', 'PlaneRight', planeHealthMax, 10);
+            super('Plane', 100, 100, 'img/plane.png', 'PlaneRight', planeHealthMax, 10)
             this.ctrlMode = 1; //1:mouse 2:keyboard
             this.bulletnum = planeBulletMax;
             this.tickperbullet = 5;
@@ -574,7 +598,7 @@
             });
             //plane with shield
             Game.Bumpevent(plane, 1, all_sd, sdn, function (arr1, arr2, i, j) {
-                arr1[i].inst.src = 'img/plane_wudi.png';
+                arr1[i].picsrc = 'img/plane_wudi.png';
                 arr1[i].wuditick = gametick;
                 arr1[i].wudi = true;
                 removeobj(arr2, j);
@@ -725,7 +749,7 @@
             //judge wudi
             if (gametick - plane[0].wuditick >= 5 * fps) {
                 plane[0].wudi = false;
-                plane[0].inst.src = 'img/plane.png';
+                plane[0].picsrc = 'img/plane.png';
             }
             score += 0.01 * Math.sqrt(difficulty);
             if (score >= boss_num * 2000 + 2000) {
@@ -749,6 +773,10 @@
             }
         }
         static Draw() {
+            let ctx = ui.getContext("2d")
+            ctx.fillStyle = 'white'
+            ctx.fillRect(0, 0, width, height)
+
             plane[0].drawPos();
             for (let i = 0; i < vegn; i++) {
                 all_veg[i].drawPos();
