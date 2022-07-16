@@ -28,6 +28,7 @@
 </head>
 <body>
     <div id="dv">
+        <canvas id="ui" style="position: absolute;left: 0;right: 0;"></canvas>
         <div style="position: absolute; right: 100px; top: 100px;">
             <p>燃油储量</p>
             <meter id="mtro"></meter>
