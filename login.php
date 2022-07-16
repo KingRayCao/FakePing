@@ -48,9 +48,11 @@
 </head>
 
 <body>
-    <div>
+   <div>
         <blockquote style="font-family: 隶书;font-size:30px;">“问汝<b style="font-size:50px;font-family:华文行楷;color:crimson" id="ping">平</b>生功业，飞机巨鸡卖鸡”</blockquote>
-
+	<p>温馨提示：1.左边为鼠标模式，右边为键盘模式(WASD移动)</p>
+	<p>2.打完一局后请刷新页面重新开始</p>
+	<p>3.按v键可掉转机头</p>
     </div>
     <div id="dv">
         <div style="position:absolute;left:1000px;">
@@ -89,14 +91,14 @@
     <?php
     if (!empty($name)) {
         echo <<<EOF
-            <script>welcomePage();</script>
             <img class="Plane" onclick="window.location.href='VegetableHunter.php?ctrlmode=1&username=$name';" style="left:300px;"
             src="img/plane.png" />
             <img class="Plane" onclick="window.location.href='VegetableHunter.php?ctrlmode=2&username=$name';" style="left:700px"
             src="img/plane.png" />
             EOF;
     }
-    ?>
+?>
+
 </body>
 
 </html>

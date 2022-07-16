@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST['action'])) {
-    $servername = 'localhost';
+    $servername = '192.168.2.106:3307';
     $dbusername = 'root';
-    $passwd = "fakeping";
+    $passwd = "040129";
     $dbname = "plane";
     $conn = new mysqli($servername, $dbusername, $passwd, $dbname);
     if ($conn->connect_errno) {

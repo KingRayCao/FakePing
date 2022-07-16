@@ -24,6 +24,7 @@
     var userName = '';
     var table = getElem("rank");
     var imageMap = []
+    if(field!=null){
 
     field.width = width
     field.height = height
@@ -31,6 +32,7 @@
         field.width = width
         field.height = height
     })
+    }
 
     function getElem(s) {
         return document.getElementById(s);
@@ -259,11 +261,20 @@
                     break;
                 case 'v':
                     plane[0].direction = 1 - plane[0].direction;
+		    if(plane[0].wudi){
+			if(plane[0].direction==1){
+			    plane[0].picsrc='img/plane_wudi_l.png';
+			}else{
+			    plane[0].picsrc='img/plane_wudi.png';
+			}
+		    }
+	   	    else{
                     if (plane[0].direction == 1) {
-                        plane[0].inst.className = 'PlaneLeft';
+                        plane[0].picsrc='img/plane_l.png';
                     } else {
-                        plane[0].inst.className = 'PlaneRight';
+                        plane[0].picsrc='img/plane.png';
                     }
+		    }
                     break;
                 case ' ':
                     buttonPressed.space = true;
@@ -598,7 +609,10 @@
             });
             //plane with shield
             Game.Bumpevent(plane, 1, all_sd, sdn, function (arr1, arr2, i, j) {
-                arr1[i].picsrc = 'img/plane_wudi.png';
+                if(arr1[i].direction==0)
+		    arr1[i].picsrc = 'img/plane_wudi.png';
+		else
+		    arr1[i].picsrc='img/plane_wudi_l.png';
                 arr1[i].wuditick = gametick;
                 arr1[i].wudi = true;
                 removeobj(arr2, j);
@@ -749,7 +763,10 @@
             //judge wudi
             if (gametick - plane[0].wuditick >= 5 * fps) {
                 plane[0].wudi = false;
-                plane[0].picsrc = 'img/plane.png';
+		if(plane[0].direction==0)
+                    plane[0].picsrc = 'img/plane.png';
+		else
+		    plane[0].picsrc='img/plane_l.png';
             }
             score += 0.01 * Math.sqrt(difficulty);
             if (score >= boss_num * 2000 + 2000) {
